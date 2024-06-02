@@ -35,11 +35,9 @@ router.post(
     try {
       const { username, password } = req.body;
       const user = await User.findOne({ username });
-
       if (!user) {
         return res.status(401).send("Invalid username or password");
       }
-
       user.comparePassword(password, (err, isMatch) => {
         if (err) {
           throw err;
@@ -47,27 +45,15 @@ router.post(
         if (!isMatch) {
           return res.status(401).send("Invalid username or password");
         }
-        // req.session.userId = user.id;
-        // res.send("Login successful");
-        // return res.redirect("/");
-
         req.session.regenerate(function (err) {
           if (err) next(err);
 
-          // store user information in session, typically a user id
           req.session.user = user;
-
-          // save the session before redirection to ensure page
-          // load does not happen before session is saved
           req.session.save(function (err) {
             if (err) return next(err);
-
-            // res.redirect("/");
             res.send(responseFormat("Login successful"));
           });
         });
-
-        // console.log(req.session);
       });
     } catch (err) {
       console.error(err);
@@ -75,5 +61,11 @@ router.post(
     }
   }
 );
+
+router.post("/logout", function (req, res, next) {
+  req.session.user = null;
+  req.session.save(function (err) {});
+  res.send(responseFormat("Logout successful"));
+});
 
 export default router;
