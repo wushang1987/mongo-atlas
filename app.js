@@ -1,7 +1,9 @@
-import express, { json } from "express";
+import express, { json, urlencoded } from "express";
 import path from "path";
 import logger from "morgan";
 import cookieParser from "cookie-parser";
+import session from "express-session";
+import cors from "cors";
 
 import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
@@ -11,7 +13,28 @@ import connectDB from "./connectDB";
 connectDB();
 const app = express();
 
+app.use(cors());
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(json());
+
+app.use(
+  session({
+    secret: "your secret key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }, // 设置 cookie 过期时间
+  })
+);
+
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
 
