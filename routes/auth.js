@@ -7,10 +7,8 @@ var router = express.Router();
 router.get("/user", async (req, res, next) => {
   const user = req.session.user;
   if (user) {
-    // 如果用户已登录，显示用户信息
-    res.send(responseFormat({ user: user })); // 假设你使用某种模板引擎（如 Pug, EJS 等）
+    res.send(responseFormat({ user: user }));
   } else {
-    // 如果用户未登录，显示未登录的内容
     res.send(responseFormat({ user: null }));
   }
 });
@@ -65,7 +63,7 @@ router.post(
             if (err) return next(err);
 
             // res.redirect("/");
-            res.send("Login successful");
+            res.send(responseFormat("Login successful"));
           });
         });
 
