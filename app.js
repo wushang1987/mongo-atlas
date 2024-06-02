@@ -5,15 +5,12 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import cors from "cors";
 
-import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
 import authRouter from "./routes/auth";
 import connectDB from "./connectDB";
 
 connectDB();
 const app = express();
-
-app.use(cors());
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -22,37 +19,28 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use(json());
-
 app.use(
   session({
-    secret: "your secret key",
+    secret: "dcc",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }, // 设置 cookie 过期时间
+    // cookie: { maxAge: 60000, secure: false }, // 设置 cookie 过期时间
   })
 );
 
-app.use(json());
-app.use(urlencoded({ extended: true }));
-
 const PORT = process.env.PORT || 3000;
-
-app.get("/", async (req, res) => {
-  res.json({ status: true, message: "Our node.js app works" });
-});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
