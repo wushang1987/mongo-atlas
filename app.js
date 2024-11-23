@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import cors from "cors";
 
+import indexRouter from "./routes/index";
 import usersRouter from "./routes/users";
 import authRouter from "./routes/auth";
 import connectDB from "./connectDB";
@@ -40,13 +41,13 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use("/", indexRouter);
+app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  // next(createError(404));
 });
 
 // error handler
