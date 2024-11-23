@@ -28,6 +28,16 @@ router.post("/signUp", async (req, res, next) => {
   }
 });
 
+router.get("/allUser", async (req, res, next) => {
+  const user = await User.find({});
+  console.log(user);
+  if (user.length > 0) {
+    res.send(responseFormat({ user: user }));
+  } else {
+    res.send(responseFormat({ user: null }));
+  }
+});
+
 router.post(
   "/login",
   express.urlencoded({ extended: false }),
