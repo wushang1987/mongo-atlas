@@ -25,15 +25,15 @@ on:
 
 # Environment variables available to all jobs and steps in this workflow.
 env:
-  REGION_ID: cn-hangzhou
-  REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  NAMESPACE: namespace
-  IMAGE: repo
+  REGION_ID: cn-heyuan
+  REGISTRY: registry.cn-heyuan.aliyuncs.com
+  NAMESPACE: buzhuzhai1
+  IMAGE: buzhuzhai
   TAG: ${{ github.sha }}
   ACK_CLUSTER_ID: clusterID
   ACK_DEPLOYMENT_NAME: nginx-deployment
 
-  ACR_EE_REGISTRY: myregistry.cn-hangzhou.cr.aliyuncs.com
+  ACR_EE_REGISTRY: registry.cn-heyuan.aliyuncs.com/buzhuzhai1/buzhuzhai
   ACR_EE_INSTANCE_ID: i-f8z61z784gwh7x08jfcl
   ACR_EE_NAMESPACE: iZf8z61z784gwh7x08jfclZ
   ACR_EE_IMAGE: repo
