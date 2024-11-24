@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && babel src --out-dir dist  --copy-files",
     "start": "node dist/app.js",
-    "start:dev": "nodemon --exec babel-node app.js"
+    "start:dev": "nodemon --exec babel-node src/app.js"
   },
   "dependencies": {
     "@babel/cli": "^7.22.15",
