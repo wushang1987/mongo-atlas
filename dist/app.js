@@ -16,7 +16,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 (0, _connectDB.default)();
 const app = (0, _express.default)();
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://47.121.180.10:3000/",
   optionsSuccessStatus: 200,
   credentials: true
 };
